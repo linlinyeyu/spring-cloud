@@ -1,0 +1,23 @@
+server:
+  port: 7070
+spring:
+  application:
+    name: producer
+  cloud:
+    stream:
+      kafka:
+        binder:
+          #kafka的消息中间件服务器
+          brokers: localhost:9092
+          #zookeeper的节点，如果集群，后面,分隔
+          #自动创建topic
+          auto-create-topics: true
+      bindings:
+        #暂时使用默认output,后面有自定义output
+        myOutput:
+          destination: stream-demo
+          #消息发送格式，接收端不用指定格式，但是发送端需要
+          content-type: text/plain
+          producer:
+            partitionKeyExpression: payload.id
+            partitionCount: 2

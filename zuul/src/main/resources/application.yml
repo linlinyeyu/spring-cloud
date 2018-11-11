@@ -1,0 +1,32 @@
+server:
+  port: 7060
+spring:
+  application:
+    name: api-gateway
+zuul:
+  routes:
+    #标识服务名
+    config-client:
+      #服务映射的路径，通过这路径就可以从外部访问你的服务了，目的是为了不爆露你机器的IP，面向服务的路由了，给你选一个可用的出来，
+      #这里zuul是自动依赖hystrix，ribbon的，不是面向单机
+      path: /config-client/**
+      #这里一定要是你Eureka注册中心的服务的名称，是所以这里配置serviceId因为跟eureka结合了，如果单独使用zuul,那么就必须写自己机器的IP了，
+      #如url:http://localhost:8080/  这样的不好就是写死IP了，万一这IP挂了，这高可用性，服务注册那套东西就用不起来了
+      serviceId: config-client
+      #如果ignored-services:*  表示所有的默认路由都失效了，要自己一个个配，没人会那么操蛋，除非遇到奇葩业务
+      #ignored-patterns:表示屏蔽掉/hello/**的路径，就算你/hello-service/hello/**也不行，照样屏蔽。这个配置我们可以进一步细化，比如说我不想给/hello接口路由，那我们可以按照上面方式配置
+      #ignored-patterns: /hello/**
+      #你访问的服务都必须要加/api/前缀，例如/api/hello-service/**
+      #prefix: /api/**
+      #访问/local时能够自动跳转到这个方法上来处理，那么此时我们需要用到Zuul的本地跳转，配置方式如下
+      #routes:
+      #    local:
+      #      path: /hello-service/**
+      #      url: forward:/local
+      #
+      #zuul默认去除cookie,header，可以配置传递
+      #sensitive-headers: cookie,header之类
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:123456@localhost:7012/eureka/,http://user:123456@localhost:7011/eureka/

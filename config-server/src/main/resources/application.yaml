@@ -1,0 +1,22 @@
+server:
+  port: 7010
+spring:
+  cloud:
+    config:
+      server:
+        default-application-name: config-server
+        git:
+          #配置git仓库地址
+          uri: http://gitlab.ybliu.com/root/spring-cloud-config.git
+          #配置仓库路径
+          search-paths: configpath
+          username: root
+          password: 515998946
+      #配置仓库分支
+      label: master
+  application:
+    name: cloud-server
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:123456@localhost:7011/eureka/,http://user:123456@localhost:7012/eureka/

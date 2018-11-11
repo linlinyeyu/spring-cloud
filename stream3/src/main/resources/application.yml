@@ -1,0 +1,19 @@
+server:
+  port: 7090
+spring:
+  application:
+    name: consumer_2
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true
+      bindings:
+        #input接受
+        input:
+          destination: stream-demo
+          group: group
+          consumer:
+            partitioned: true
+      instance-count: 2

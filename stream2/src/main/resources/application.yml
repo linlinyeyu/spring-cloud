@@ -1,0 +1,16 @@
+server:
+  port: 7080
+spring:
+  application:
+    name: consumer_1
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true
+      bindings:
+        #input接受
+        input:
+          destination: stream-demo
+          group: group

@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: Eureka2
+  security:
+    user:
+      name: user
+      password: 123456
+server:
+  port: 7012
+
+eureka:
+  instance:
+    hostname: localhost
+    lease-expiration-duration-in-seconds: 90
+    lease-renewal-interval-in-seconds: 30
+    #状态页面的URL，相对路径，默认使用 HTTP 访问，如果需要使用 HTTPS则需要使用绝对路径配置
+    status-page-url-path: /info
+    health-check-url-path: /health
+    health-check-url: /
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    service-url:
+      defaultZone: http://user:123456@${eureka.instance.hostname}:7011/eureka/
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 5000

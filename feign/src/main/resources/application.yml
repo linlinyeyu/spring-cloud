@@ -1,0 +1,28 @@
+server:
+  port: 7050
+spring:
+  application:
+    name: feign-consumer
+  zipkin:
+    base-url: http://localhost:9400
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:123456@localhost:7011/eureka/,http://user:123456@localhost:7012/eureka/
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutinMilliseconds: 5000
+ribbon:
+  connectTimeout: 500
+
+#//单独服务配置
+config-client:
+  ribbon:
+    connectTimeout: 500

@@ -1,0 +1,29 @@
+#和git里文件名对应
+spring:
+  application:
+    name: config-client
+  #远程仓库的分支
+  cloud:
+    config:
+      label: master
+  #dev开发环境配置文件 | test测试环境 | pro正式环境
+  #和git里的文件名对应
+      profile: dev
+  #指明配置服务中心的网址
+      #uri: http://localhost:7010/
+      discovery:
+        enabled: true
+        service-id: cloud-server
+  zipkin:
+    base-url: http://localhost:9400
+server:
+  port: 7030
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:123456@localhost:7011/eureka/,http://user:123456@localhost:7012/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -1,0 +1,16 @@
+server:
+  port: 7040
+spring:
+  application:
+    name: ribbon-consumer
+#自己命名provider
+providers:
+  ribbon:
+    listOfServers: localhost:7020,localhost:7030
+#配置负载均衡策略
+NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user:123456@localhost:7011/eureka/,http://user:123456@localhost:7012/eureka/
